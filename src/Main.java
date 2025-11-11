@@ -1,10 +1,13 @@
 import Category.Category;
+import Exceptions.InsufficientStockException;
+import Exceptions.ProductNotFoundException;
 import Handler.DataHandler;
 import Handler.WarehouseHandler;
 import Products.*;
 import Warehouse.Warehouse;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -56,13 +59,34 @@ public class Main {
                     warehouseHandler.removeProductFromWarehouse();
                     break;
                 case 4:
-                    warehouseHandler.findProductByID();
+                    try
+                    {
+                        warehouseHandler.findProductByID();
+                    }
+                    catch (ProductNotFoundException e)
+                    {
+                        System.out.println(e);
+                    }
                     break;
                 case 5:
-                    warehouseHandler.findProductByName();
+                    try
+                    {
+                        warehouseHandler.findProductByName();
+                    }
+                    catch (ProductNotFoundException e)
+                    {
+                        System.out.println(e);
+                    }
                     break;
                 case 6:
-                    warehouseHandler.reserveProduct();
+                    try
+                    {
+                        warehouseHandler.reserveProduct();
+                    }
+                    catch (InsufficientStockException e)
+                    {
+                        System.out.println(e);
+                    }
                     break;
                 case 7:
                     warehouseHandler.addCategory();
@@ -81,9 +105,8 @@ public class Main {
                 case 12:
                     warehouseHandler.showAllProducts();
                     break;
-
                 case 13:
-                    warehouse = dataHandler.Load();
+                        warehouse = dataHandler.Load();
                     break;
                 case 14:
                     dataHandler.Save(warehouse);
